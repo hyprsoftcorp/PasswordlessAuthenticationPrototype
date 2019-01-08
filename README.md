@@ -8,10 +8,10 @@ This repo demonstrates the typical password-less authentication experience.  The
 4. The user is presented with a personalized greeting displaying their name and email address.
 
 ## Technical Details
-### Backend
+### [Backend](https://pwdlessauth.azurewebsites.net/)
 Built using C# and ASP.NET Core 2.2.  To generate "magic" links, the backend uses the built-in DataProtectorTokenProvider and we set the TokenLifespan to 15 minutes.  It's imporatant to note that this change affects other workflows such as email confirmation, password reset, etc. which may not be desired.  In our case, since our "platform" is accessible only by invitation, there is no user signup, email confirmation, password reset, etc.  Once the user is emailed the "magic" link and opened on the device we authenticate the mobile app using simple bearer token authentication.  The bearer token is persisted in secure storage on the device.
 
-### Mobile Apps (Android and iOS)
+### Mobile Apps ([Android](https://play.google.com/store/apps/details?id=com.hyprsoft.Auth.Passwordless.Prototype) and [iOS](https://www.apple.com/ios/app-store))
 Built using C# and Xamarin Forms.  To initiate the password-less authentication workflow we leveraged the app links/deep linking functionality on Android and universal links on iOS.  It appears as though these technologies have not been perfected on either platform (especially iOS) although we hope it's just something we left out or are doing incorrectly.
 
 ### Enhancements

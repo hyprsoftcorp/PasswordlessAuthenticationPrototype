@@ -1,0 +1,46 @@
+﻿@model InvitationRequest
+@{
+    ViewBag.Title = "Invitation Request";
+}
+
+<div class="jumbotron">
+    <h3 class="text-primary"><i class="fas fa-unlock"></i> @SharedSettings.AppName</h3>
+    <p class="lead">
+        Tired of having to remember all your usernames and passwords for your apps?  Try our password-less authentication prototype.  <b>No username or password required!</b>
+    </p>
+</div>
+<p>
+    This app demonstrates a streamlined app login experience where you only log into the app once using a "magic" link sent to your email.
+    You don't need a username or password and once you're logged in you don't have to login again.
+    Wanna give it a shot?  Simply enter your name and email address below and we'll send you instructions on how to download the app.
+</p>
+<h3>Invitation Request</h3>
+<form asp-action="Index">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label asp-for="Name"></label>*
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="small text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>*
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="small text-danger"></span>
+    </div>
+    @await Html.PartialAsync("_FeedbackPartial", Model)
+    <button type="submit" class="btn btn-primary" onclick="page.requestInvite(this)">Send</button>
+</form>
+@section scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+        page.requestInvite = (e) => {
+            let form = $(e.form);
+            if (form.valid()) {
+                form.submit();
+                e.innerHTML = 'Sending...';
+                e.disabled = true;
+                return false;
+            }
+        };
+    </script>
+}

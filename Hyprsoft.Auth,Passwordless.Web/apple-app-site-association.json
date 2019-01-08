@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "4LAW5W72FH.com.hyprsoft.Auth.Passwordless.Prototype",
+        "paths": [ "/api/auth/token*" ]
+      }
+    ]
+  }
+}

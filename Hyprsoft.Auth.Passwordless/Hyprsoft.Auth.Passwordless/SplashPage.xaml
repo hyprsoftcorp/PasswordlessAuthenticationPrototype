@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Hyprsoft.Auth.Passwordless"
+             x:Class="Hyprsoft.Auth.Passwordless.SplashPage"
+             Padding="20">
+
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <Image WidthRequest="144" HeightRequest="144" Source="{Binding SplashIcon}" />
+            <Label Text="{x:Static local:SharedSettings.AppName}" HorizontalOptions="Center" FontSize="Large" Margin="5,0" FontAttributes="Bold" XAlign="Center" />
+            <Label Text="{Binding SplashVersion}" HorizontalOptions="Center" Margin="5,0" TextColor="Gray" FontSize="Small" XAlign="Center" />
+            <ActivityIndicator IsRunning="True" HorizontalOptions="Center" WidthRequest="30" HeightRequest="30" />
+        </StackLayout>
+    </ContentPage.Content>
+    
+</ContentPage>

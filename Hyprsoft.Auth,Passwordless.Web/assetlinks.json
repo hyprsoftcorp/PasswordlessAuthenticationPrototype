@@ -1,0 +1,13 @@
+[
+  {
+    "relation": [ "delegate_permission/common.handle_all_urls" ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.hyprsoft.Auth.Passwordless.Prototype",
+      "sha256_cert_fingerprints": [
+        "82:48:F1:92:F6:DE:A6:1E:66:40:44:65:2E:AE:93:FF:E1:5D:8E:F3:C8:17:4E:2B:64:8F:6B:91:D0:B6:A5:8D",
+        "79:D9:D6:D0:74:E6:09:D2:A8:4B:36:5D:10:2C:63:50:96:D4:23:04:15:E7:3C:88:F1:50:96:31:E1:94:AA:AB"
+      ]
+    }
+  }
+]

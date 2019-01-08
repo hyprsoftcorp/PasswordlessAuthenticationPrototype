@@ -1,0 +1,14 @@
+﻿@if (!String.IsNullOrWhiteSpace(ViewBag.Error))
+{
+    <div class="alert alert-danger" role="alert">
+        <h4>Oops, we have a problem...</h4>
+        @ViewBag.Error
+    </div>
+}
+else if (!String.IsNullOrWhiteSpace(ViewBag.Feedback))
+{
+    <div class="alert alert-success" role="alert">
+        <h4>Nice work!</h4>
+        @ViewBag.Feedback
+    </div>
+}

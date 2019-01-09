@@ -5,6 +5,7 @@ using Microsoft.AppCenter.Crashes;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -38,8 +39,10 @@ namespace Hyprsoft.Auth.Passwordless
 
         #region Properties
 
-        internal const string SettingsKeyFirstRun = "FirstRun";
-        internal const string SettingsKeyBearerToken = "BearerToken";
+        internal const string PreferencesKeyFirstRun = "FirstRun";
+
+        internal const string StorageKeyAccessToken = "AccessToken";
+        internal const string StorageKeyRefreshToken = "RefreshToken";
 
         #endregion
 
@@ -49,11 +52,11 @@ namespace Hyprsoft.Auth.Passwordless
         {
             AppCenter.Start("android=50c2eb73-d9dd-48a0-a96e-8b51be1ad56c;ios=34c1ff56-9d8d-4a53-a7a5-9c2031dc0843", typeof(Analytics), typeof(Crashes));
 
-            // If this is our first run clear our secure storage because iOS can sync settings to iCloud.
-            if (Preferences.Get(SettingsKeyFirstRun, true))
+            // If this is our first run clear our secure storage because iOS can sync/remember settings to iCloud.
+            if (Preferences.Get(PreferencesKeyFirstRun, true))
             {
                 SecureStorage.RemoveAll();
-                Preferences.Set(SettingsKeyFirstRun, false);
+                Preferences.Set(PreferencesKeyFirstRun, false);
             }
             await InitializeAsync();
         }
@@ -66,7 +69,7 @@ namespace Hyprsoft.Auth.Passwordless
         public async Task AuthenticateAsync(AuthenticationRequest request)
         {
             // Ignore auth requests if we are already authenticated.
-            if (!String.IsNullOrWhiteSpace(await SecureStorage.GetAsync(SettingsKeyBearerToken)))
+            if (!String.IsNullOrWhiteSpace(await SecureStorage.GetAsync(StorageKeyAccessToken)))
                 return;
 
             try
@@ -76,10 +79,11 @@ namespace Hyprsoft.Auth.Passwordless
                     new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
                 if (response.IsSuccessStatusCode)
                 {
-                    var payload = JsonConvert.DeserializeAnonymousType(await response.Content.ReadAsStringAsync(), new { Token = String.Empty });
-                    await SecureStorage.SetAsync(SettingsKeyBearerToken, payload.Token);
+                    var payload = JsonConvert.DeserializeObject<AuthenticationData>(await response.Content.ReadAsStringAsync());
+                    await SecureStorage.SetAsync(StorageKeyAccessToken, payload.AccessToken);
+                    await SecureStorage.SetAsync(StorageKeyRefreshToken, payload.RefreshToken);
                     Analytics.TrackEvent(nameof(AuthenticateAsync), new Dictionary<string, string> { { "UserId", request.Id } });
-                    await GetUserProfileAsync(payload.Token);
+                    await GetUserProfileAsync(payload.AccessToken, payload.RefreshToken);
                     return;
                 }
             }
@@ -94,31 +98,44 @@ namespace Hyprsoft.Auth.Passwordless
 
         private async Task InitializeAsync()
         {
-            var bearerToken = await SecureStorage.GetAsync(SettingsKeyBearerToken);
-            if (String.IsNullOrWhiteSpace(bearerToken))
+            var accessToken = await SecureStorage.GetAsync(StorageKeyAccessToken);
+            var refreshToken = await SecureStorage.GetAsync(StorageKeyRefreshToken);
+
+            if (String.IsNullOrWhiteSpace(accessToken) || String.IsNullOrWhiteSpace(refreshToken))
                 MainPage = new FeedbackPage("Hmmm, it looks like we are missing your invitaton to use this app.  Please check your email or request an invite.");
             else
-                await GetUserProfileAsync(bearerToken);
+                await GetUserProfileAsync(accessToken, refreshToken);
         }
 
-        private async Task GetUserProfileAsync(string bearerToken)
+        private async Task GetUserProfileAsync(string accessToken, string refreshToken)
         {
-            string feedback;
+            string feedback = "Oops, you're not authorized to use this app.";
             try
             {
-                System.Diagnostics.Debug.WriteLine($"[{nameof(GetUserProfileAsync)}] - Token: '{bearerToken}'.");
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+                System.Diagnostics.Debug.WriteLine($"[{nameof(GetUserProfileAsync)}] - Token: '{accessToken}'.");
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
                 var response = await _httpClient.GetAsync($"api/profile/me");
                 if (response.IsSuccessStatusCode)
                 {
-                    var me = JsonConvert.DeserializeObject<User>(await response.Content.ReadAsStringAsync());
+                    var me = JsonConvert.DeserializeObject<UserProfile>(await response.Content.ReadAsStringAsync());
                     feedback = $"Greetings {me.Name}.  You're authenticated using '{me.Email}'.  Thanks for trying out our password-less authentication prototype.";
                 }
-                else
+                else if (response.StatusCode == HttpStatusCode.Unauthorized && response.Headers.Contains("Token-Expired"))
                 {
+                    response = await _httpClient.PostAsync($"api/auth/refresh",
+                        new StringContent(JsonConvert.SerializeObject(new AuthenticationData { AccessToken = accessToken, RefreshToken = refreshToken }), Encoding.UTF8, "application/json"));
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var payload = JsonConvert.DeserializeObject<AuthenticationData>(await response.Content.ReadAsStringAsync());
+                        await SecureStorage.SetAsync(StorageKeyAccessToken, payload.AccessToken);
+                        await SecureStorage.SetAsync(StorageKeyRefreshToken, payload.RefreshToken);
+                        await GetUserProfileAsync(payload.AccessToken, payload.RefreshToken);
+                        return;
+                    }
                     Analytics.TrackEvent(nameof(GetUserProfileAsync), new Dictionary<string, string> { { "Status", "Unauthorized." } });
-                    feedback = "Oops, you're not authorized to use this app.";
                 }
+                else
+                    Analytics.TrackEvent(nameof(GetUserProfileAsync), new Dictionary<string, string> { { "Status", "Unauthorized." } });
             }
             catch (Exception ex)
             {

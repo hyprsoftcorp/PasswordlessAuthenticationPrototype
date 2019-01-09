@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 
@@ -31,7 +30,7 @@ namespace Hyprsoft.Auth.Passwordless.Web.Controllers
         #region Methods
 
         [HttpGet]
-        public ActionResult<User> Me()
+        public ActionResult<UserProfile> Me()
         {
             var user = _userManager.Users.First(u => u.Id == User.FindFirstValue(ClaimTypes.NameIdentifier));
 
@@ -41,7 +40,7 @@ namespace Hyprsoft.Auth.Passwordless.Web.Controllers
             if (!user.IsEnabled)
                 return Forbid();
 
-            return Ok(new User { Name = user.Name, Email = user.Email });
+            return Ok(new UserProfile { Name = user.Name, Email = user.Email });
         }
 
         #endregion

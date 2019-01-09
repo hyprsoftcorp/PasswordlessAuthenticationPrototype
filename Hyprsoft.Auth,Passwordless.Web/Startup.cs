@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Hyprsoft.Auth.Passwordless.Web
 {
@@ -41,18 +42,29 @@ namespace Hyprsoft.Auth.Passwordless.Web
                 .AddDefaultTokenProviders();
 
             services.Configure<DataProtectionTokenProviderOptions>(options => options.TokenLifespan = AuthenticationSettings.OtpTokenLifespan);
+            services.ConfigureApplicationCookie(options => options.ForwardForbid = JwtBearerDefaults.AuthenticationScheme);
             services.AddHttpsRedirection(options => options.HttpsPort = 443);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
+                    ClockSkew = AuthenticationSettings.BearerTokenClockSkew,
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = AuthenticationSettings.BearerIssuer,
-                    ValidAudience = AuthenticationSettings.DefaultBearerAudience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AuthenticationSettings.BearerSecurityKey))
+                    ValidIssuer = AuthenticationSettings.BearerTokenIssuer,
+                    ValidAudience = AuthenticationSettings.BearerTokenAudience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AuthenticationSettings.BearerTokenSecurityKey))
+                };
+                options.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = context =>
+                    {
+                        if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                            context.Response.Headers.Add("Token-Expired", "true");
+                        return Task.CompletedTask;
+                    }
                 };
             });
 

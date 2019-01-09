@@ -43,7 +43,7 @@ namespace Hyprsoft.Auth.Passwordless
 
         public Command RequestInviteCommand => new Command(() => Device.OpenUri(SharedSettings.AppWebUri));
 
-        public bool RequestInviteIsVisible => String.IsNullOrWhiteSpace(SecureStorage.GetAsync(App.SettingsKeyBearerToken).Result);
+        public bool RequestInviteIsVisible => String.IsNullOrWhiteSpace(SecureStorage.GetAsync(App.StorageKeyAccessToken).Result);
 
         #endregion
     }

@@ -27,7 +27,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>com.hyprsoft.Auth.Passwordless.Prototype</string>
 	<key>CFBundleVersion</key>
-	<string>1.04</string>
+	<string>1.05</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>

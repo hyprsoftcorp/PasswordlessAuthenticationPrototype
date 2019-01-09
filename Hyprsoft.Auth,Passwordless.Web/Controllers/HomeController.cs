@@ -85,7 +85,7 @@ namespace Hyprsoft.Auth.Passwordless.Web.Controllers
                     model = new InvitationRequest();
                 }
                 else
-                    ViewBag.Feedback = $"But...invitations for this user can no longer be requested.";
+                    ViewBag.Feedback = $"Unfortunately invitations for this user can no longer be requested.";
             }
             catch (Exception ex)
             {

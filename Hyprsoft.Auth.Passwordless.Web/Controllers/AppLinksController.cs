@@ -9,19 +9,19 @@ namespace Hyprsoft.Auth.Passwordless.Web.Controllers
     {
         #region Methods
 
-        [Route("~/.well-known/assetlinks.json")]
+        [HttpGet("~/.well-known/assetlinks.json")]
         public ActionResult Android()
         {
             return GetEmbeddedResourceAsJson("Hyprsoft.Auth.Passwordless.Web.assetlinks.json");
         }
 
-        [Route("~/apple-app-site-association")]
+        [HttpGet("~/apple-app-site-association")]
         public ActionResult AppleRoot()
         {
             return GetEmbeddedResourceAsJson("Hyprsoft.Auth.Passwordless.Web.apple-app-site-association.json");
         }
 
-        [Route("~/.well-known/apple-app-site-association")]
+        [HttpGet("~/.well-known/apple-app-site-association")]
         public ActionResult AppleWellKnown()
         {
             return GetEmbeddedResourceAsJson("Hyprsoft.Auth.Passwordless.Web.apple-app-site-association.json");

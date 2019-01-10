@@ -47,7 +47,7 @@ namespace Hyprsoft.Auth.Passwordless.Tests
         #region Methods
 
         [TestMethod]
-        public async Task RegularWorkflow()
+        public async Task StandardWorkflow()
         {
             using (var client = WebServer.CreateClient())
             {

@@ -39,7 +39,7 @@ namespace Hyprsoft.Auth.Passwordless
 
         public ImageSource SplashIcon => ImageSource.FromResource("Hyprsoft.Auth.Passwordless.icon.png", typeof(SplashPage).GetTypeInfo().Assembly);
 
-        public string SplashVersion => $"Version: {DependencyService.Get<IAppInformation>().Version}";
+        public string SplashVersion => $"Version: {AppInfo.VersionString}";
 
         public Command RequestInviteCommand => new Command(() => Device.OpenUri(SharedSettings.AppWebUri));
 

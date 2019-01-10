@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -21,7 +22,7 @@ namespace Hyprsoft.Auth.Passwordless
 
         public ImageSource SplashIcon => ImageSource.FromResource("Hyprsoft.Auth.Passwordless.icon.png", typeof(SplashPage).GetTypeInfo().Assembly);
 
-        public string SplashVersion => $"Version: {DependencyService.Get<IAppInformation>().Version}";
+        public string SplashVersion => $"Version: {AppInfo.VersionString}";
 
         #endregion
     }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Hyprsoft.Auth.Passwordless.Models
 {
-    public class AuthenticationData
+    public class AuthenticationResponse
     {
         #region Properties
 

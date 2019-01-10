@@ -79,7 +79,7 @@ namespace Hyprsoft.Auth.Passwordless
                     new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
                 if (response.IsSuccessStatusCode)
                 {
-                    var payload = JsonConvert.DeserializeObject<AuthenticationData>(await response.Content.ReadAsStringAsync());
+                    var payload = JsonConvert.DeserializeObject<AuthenticationResponse>(await response.Content.ReadAsStringAsync());
                     await SecureStorage.SetAsync(StorageKeyAccessToken, payload.AccessToken);
                     await SecureStorage.SetAsync(StorageKeyRefreshToken, payload.RefreshToken);
                     Analytics.TrackEvent(nameof(AuthenticateAsync), new Dictionary<string, string> { { "UserId", request.Id } });
@@ -123,10 +123,10 @@ namespace Hyprsoft.Auth.Passwordless
                 else if (response.StatusCode == HttpStatusCode.Unauthorized && response.Headers.Contains("Token-Expired"))
                 {
                     response = await _httpClient.PostAsync($"api/auth/refresh",
-                        new StringContent(JsonConvert.SerializeObject(new AuthenticationData { AccessToken = accessToken, RefreshToken = refreshToken }), Encoding.UTF8, "application/json"));
+                        new StringContent(JsonConvert.SerializeObject(new AuthenticationResponse { AccessToken = accessToken, RefreshToken = refreshToken }), Encoding.UTF8, "application/json"));
                     if (response.IsSuccessStatusCode)
                     {
-                        var payload = JsonConvert.DeserializeObject<AuthenticationData>(await response.Content.ReadAsStringAsync());
+                        var payload = JsonConvert.DeserializeObject<AuthenticationResponse>(await response.Content.ReadAsStringAsync());
                         await SecureStorage.SetAsync(StorageKeyAccessToken, payload.AccessToken);
                         await SecureStorage.SetAsync(StorageKeyRefreshToken, payload.RefreshToken);
                         await GetUserProfileAsync(payload.AccessToken, payload.RefreshToken);

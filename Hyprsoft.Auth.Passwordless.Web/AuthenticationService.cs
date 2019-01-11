@@ -78,7 +78,23 @@ namespace Hyprsoft.Auth.Passwordless.Web
                     var message = new MimeMessage
                     {
                         Subject = $"{SharedSettings.AppName} Invitation",
-                        Body = new BodyBuilder { HtmlBody = $"<!DOCTYPE html><html><head><title>{SharedSettings.AppName} Invitation</title></head><body><h2>{SharedSettings.AppName} Invitation</h2><p>Congrats {request.Name}, you have been invited to try out our password-less authentication app.  Our hope is that all app vendors get rid of usernames and passwords forever!  We'd love to hear your thoughts on our app using <a href=\"mailto:support@hyprsoft.com?subject={SharedSettings.AppName} Feedback\">support@hyprsoft.com</a>.</p><h3>STEP 1</h3><p>Download the '{SharedSettings.AppName}' app from the appropriate app store.</p><p><a href=\"{SharedSettings.AppStoreGoogleUri}\">Google Play Store</a> | <a href=\"{SharedSettings.AppStoreAppleUri}\">Apple App Store</a></p><h3>STEP 2</h3><p><b>Once the app is installed</b>, open the link below on your mobile device.  <b>NOTE: The link expires in {Options.OtpTokenLifespan.TotalMinutes} minutes and can only be used once</b>.  If you uninstall the app you will need to <a href=\"{SharedSettings.AppWebUri}\">request another invite</a>.</p><p><a href=\"{magicLink}\"><h3>Open this Link</h3></a></p></body></html>" }.ToMessageBody()
+                        Body = new BodyBuilder { HtmlBody = $"<!DOCTYPE html>" +
+                        $"<html>" +
+                        $"<head>" +
+                        $"<title>{SharedSettings.AppName} Invitation</title>" +
+                        $"</head>" +
+                        $"<body>" +
+                        $"<table bgcolor=\"#f8f8f8\" border=\"0\" cellpadding=\"10\" cellspacing=\"0\" style=\"background-color: #f8f8f8; width: 100%;\"><tbody><tr><td width=\"120\"><img src=\"{SharedSettings.AppWebUri}images/logo.png\" width=\"100\" height=\"100\" /></td><td><h2>{SharedSettings.AppName} Invitation</h2></td></tr></tbody></table>" +
+                        $"<table bgcolor=\"#fcfcfc\" border=\"0\" cellpadding=\"30\" cellspacing=\"0\" style=\"background-color: #fcfcfc; width: 100%;\"><tbody><tr><td>" +
+                        $"<p>Congrats {request.Name}, you have been invited to try out our password-less authentication app.  Our hope is that all app makers do away with usernames and passwords forever!  We'd love to hear your thoughts on our app using <a href=\"mailto:support@hyprsoft.com?subject={SharedSettings.AppName} Feedback\">support@hyprsoft.com</a>.</p>" +
+                        $"<h3>STEP 1</h3>" +
+                        $"<p>Download the '{SharedSettings.AppName}' app from the appropriate app store.</p><p><a href=\"{SharedSettings.AppStoreGoogleUri}\">Google Play Store</a> | <a href=\"{SharedSettings.AppStoreAppleUri}\">Apple App Store</a></p>" +
+                        $"<h3>STEP 2</h3>" +
+                        $"<p>Once the app is installed, open the link below on your mobile device.  <b>NOTE: The link below expires in {Options.OtpTokenLifespan.TotalMinutes} minutes and can only be used once</b>.  If you uninstall the app you will need to <a href=\"{SharedSettings.AppWebUri}\">request another invite</a>.<br /><a href=\"{magicLink}\"><h3>OPEN THIS LINK</h3></a></p>" +
+                        $"<p align=\"center\"><small>Generated: {DateTime.Now.ToString("f")} | Copyright © {DateTime.Now.Year} by <a href=\"https://www.hyprsoft.com/\">Hyprsoft Corporation</a></small></p>" +
+                        $"</td></tr></tbody></table>" +
+                        $"</body>" +
+                        $"</html>" }.ToMessageBody()
                     };
                     message.From.Add(new MailboxAddress(_emailSettings.FromEmail));
                     message.To.Add(new MailboxAddress(request.Email));

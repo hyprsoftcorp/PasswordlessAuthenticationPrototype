@@ -39,6 +39,7 @@ namespace Hyprsoft.Auth.Passwordless.Web.Controllers
             {
                 await _authenticationService.SendInviteAsync(model);
                 ViewBag.Feedback = $"Your invitation was successfully sent to '{model.Email}'.  The invitation contains instructions on how to download our app.";
+                ModelState.Clear();
                 model = new InvitationRequest();
             }
             catch (AuthenticationServiceForbiddenException)

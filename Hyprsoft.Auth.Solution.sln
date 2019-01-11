@@ -23,7 +23,31 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Media", "Media", "{0081D21B
 		Media\lock.pspimage = Media\lock.pspimage
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hyprsoft.Auth.Passwordless.Tests", "Hyprsoft.Auth.Passwordless.Tests\Hyprsoft.Auth.Passwordless.Tests.csproj", "{B6335026-CC44-4CBB-9534-153F41CB9FF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hyprsoft.Auth.Passwordless.Tests", "Hyprsoft.Auth.Passwordless.Tests\Hyprsoft.Auth.Passwordless.Tests.csproj", "{B6335026-CC44-4CBB-9534-153F41CB9FF3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iOS", "iOS", "{F4173A4D-2975-4706-B1FB-67C4666FBFAB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Android", "Android", "{5B30ED93-7DD2-4B4E-9D74-EA5A4C951976}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Phone", "Phone", "{38EFE5EA-B1AF-4D0B-92B5-502BD1B67E71}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tablet", "Tablet", "{05C07E1F-89BE-478A-9069-168B895F4A45}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Phone", "Phone", "{CDE48969-9081-4D04-878B-23390689DAD4}"
+	ProjectSection(SolutionItems) = preProject
+		Media\iOS\Phone\2019-01-07_12-36-42-PM.png = Media\iOS\Phone\2019-01-07_12-36-42-PM.png
+		Media\iOS\Phone\2019-01-07_12-40-44-PM.png = Media\iOS\Phone\2019-01-07_12-40-44-PM.png
+		Media\iOS\Phone\2019-01-07_12-41-49-PM.png = Media\iOS\Phone\2019-01-07_12-41-49-PM.png
+		Media\iOS\Phone\2019-01-07_12-54-37-PM.png = Media\iOS\Phone\2019-01-07_12-54-37-PM.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tablet", "Tablet", "{BDDD5E45-B61C-4D87-BEDA-A5B67975D8F1}"
+	ProjectSection(SolutionItems) = preProject
+		Media\iOS\Tablet\2019-01-07_03-17-42-PM.png = Media\iOS\Tablet\2019-01-07_03-17-42-PM.png
+		Media\iOS\Tablet\2019-01-07_03-22-37-PM.png = Media\iOS\Tablet\2019-01-07_03-22-37-PM.png
+		Media\iOS\Tablet\2019-01-07_03-24-21-PM.png = Media\iOS\Tablet\2019-01-07_03-24-21-PM.png
+		Media\iOS\Tablet\2019-01-07_03-26-13-PM.png = Media\iOS\Tablet\2019-01-07_03-26-13-PM.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -175,6 +199,12 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0081D21B-659C-4BF9-8D25-E16FBD9FB18B} = {79832139-5177-4EAD-A5E3-3E5AD26214A7}
+		{F4173A4D-2975-4706-B1FB-67C4666FBFAB} = {0081D21B-659C-4BF9-8D25-E16FBD9FB18B}
+		{5B30ED93-7DD2-4B4E-9D74-EA5A4C951976} = {0081D21B-659C-4BF9-8D25-E16FBD9FB18B}
+		{38EFE5EA-B1AF-4D0B-92B5-502BD1B67E71} = {5B30ED93-7DD2-4B4E-9D74-EA5A4C951976}
+		{05C07E1F-89BE-478A-9069-168B895F4A45} = {5B30ED93-7DD2-4B4E-9D74-EA5A4C951976}
+		{CDE48969-9081-4D04-878B-23390689DAD4} = {F4173A4D-2975-4706-B1FB-67C4666FBFAB}
+		{BDDD5E45-B61C-4D87-BEDA-A5B67975D8F1} = {F4173A4D-2975-4706-B1FB-67C4666FBFAB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4DA7C8D0-EFE1-4332-8EF2-F8F9AE2CEC51}

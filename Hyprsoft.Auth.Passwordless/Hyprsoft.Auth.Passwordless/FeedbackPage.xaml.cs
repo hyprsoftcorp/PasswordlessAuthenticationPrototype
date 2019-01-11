@@ -37,7 +37,7 @@ namespace Hyprsoft.Auth.Passwordless
             }
         }
 
-        public ImageSource SplashIcon => ImageSource.FromResource("Hyprsoft.Auth.Passwordless.icon.png", typeof(SplashPage).GetTypeInfo().Assembly);
+        public ImageSource SplashIcon => ImageSource.FromResource("Hyprsoft.Auth.Passwordless.logo.png", typeof(SplashPage).GetTypeInfo().Assembly);
 
         public string SplashVersion => $"Version: {AppInfo.VersionString}";
 

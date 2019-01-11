@@ -15,3 +15,12 @@ Once the user is emailed the "magic" link and opened on the device we authentica
 
 ### Mobile Apps ([Android](https://play.google.com/store/apps/details?id=com.hyprsoft.Auth.Passwordless.Prototype) and [iOS](https://www.apple.com/ios/app-store))
 Built using C# and Xamarin Forms (100% shared code).  To initiate the password-less authentication workflow we leveraged the app links/deep linking functionality on Android and universal links on iOS.
+
+## Screenshots
+### Web
+![Web Screenshot](/hyprsoftcorp/PasswordlessAuthenticationPrototype/blob/master/Media/Web/home.png "Web Screenshot")
+
+### Mobile
+![Android Screenshot](/hyprsoftcorp/PasswordlessAuthenticationPrototype/blob/master/Media/Android/Phone/Screenshot_1547224213.png "Android Screenshot")
+![iOS Screenshot](/hyprsoftcorp/PasswordlessAuthenticationPrototype/blob/master/Media/iOS/Phone/2019-01-07_12-54-37-PM.png "iOS Screenshot")
+

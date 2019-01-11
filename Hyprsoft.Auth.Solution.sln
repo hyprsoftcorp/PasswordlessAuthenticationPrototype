@@ -52,6 +52,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{18DBCEAC-D926-4C15-BFAA-F20C4109C26A}"
 	ProjectSection(SolutionItems) = preProject
 		Media\Web\home.png = Media\Web\home.png
+		Media\Web\invite.png = Media\Web\invite.png
 	EndProjectSection
 EndProject
 Global

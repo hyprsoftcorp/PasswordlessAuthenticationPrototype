@@ -18,9 +18,9 @@ Built using C# and Xamarin Forms (100% shared code).  To initiate the password-l
 
 ## Screenshots
 ### Web
-![Web Screenshot](/hyprsoftcorp/PasswordlessAuthenticationPrototype/blob/master/Media/Web/home.png "Web Screenshot")
+![Web Screenshot](https://github.com/hyprsoftcorp/PasswordlessAuthenticationPrototype/blob/master/Media/Web/home.png "Web Screenshot")
 
 ### Mobile
-![Android Screenshot](/hyprsoftcorp/PasswordlessAuthenticationPrototype/blob/master/Media/Android/Phone/Screenshot_1547224213.png "Android Screenshot")
-![iOS Screenshot](/hyprsoftcorp/PasswordlessAuthenticationPrototype/blob/master/Media/iOS/Phone/2019-01-07_12-54-37-PM.png "iOS Screenshot")
+![Android Screenshot](https://github.com/hyprsoftcorp/PasswordlessAuthenticationPrototype/blob/master/Media/Android/Phone/Screenshot_1547224213.png "Android Screenshot")
+![iOS Screenshot](https://github.com/hyprsoftcorp/PasswordlessAuthenticationPrototype/blob/master/Media/iOS/Phone/2019-01-07_12-54-37-PM.png "iOS Screenshot")
 

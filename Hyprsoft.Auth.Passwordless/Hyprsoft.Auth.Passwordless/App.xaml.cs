@@ -118,7 +118,7 @@ namespace Hyprsoft.Auth.Passwordless
                 if (response.IsSuccessStatusCode)
                 {
                     var me = JsonConvert.DeserializeObject<UserProfile>(await response.Content.ReadAsStringAsync());
-                    feedback = $"Greetings {me.Name}.  You're authenticated using '{me.Email}'.  Thanks for trying out our password-less authentication prototype.";
+                    feedback = $"Greetings {me.Name}.  You're authenticated using '{me.Email}'.  Thanks for trying out our password-less authentication app.";
                 }
                 else if (response.StatusCode == HttpStatusCode.Unauthorized && response.Headers.Contains("Token-Expired"))
                 {
@@ -132,10 +132,10 @@ namespace Hyprsoft.Auth.Passwordless
                         await GetUserProfileAsync(payload.AccessToken, payload.RefreshToken);
                         return;
                     }
-                    Analytics.TrackEvent(nameof(GetUserProfileAsync), new Dictionary<string, string> { { "Status", "Unauthorized." } });
+                    Analytics.TrackEvent(nameof(GetUserProfileAsync), new Dictionary<string, string> { { "Status", $"{response.StatusCode} {response.ReasonPhrase}" } });
                 }
                 else
-                    Analytics.TrackEvent(nameof(GetUserProfileAsync), new Dictionary<string, string> { { "Status", "Unauthorized." } });
+                    Analytics.TrackEvent(nameof(GetUserProfileAsync), new Dictionary<string, string> { { "Status", $"{response.StatusCode} {response.ReasonPhrase}" } });
             }
             catch (Exception ex)
             {

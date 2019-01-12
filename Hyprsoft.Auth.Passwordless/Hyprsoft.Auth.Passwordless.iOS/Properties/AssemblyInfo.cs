@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Hyprsoft Pwdless Auth Prototype for iOS")]
-[assembly: AssemblyDescription("Hyprsoft Pwdless Auth Prototype for iOS")]
+[assembly: AssemblyTitle("Hyprsoft Pwdless Authentication for iOS")]
+[assembly: AssemblyDescription("Hyprsoft Pwdless Authentication for iOS")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Hyprsoft Corporation")]
-[assembly: AssemblyProduct("Hyprsoft Pwdless Auth Prototype for iOS")]
+[assembly: AssemblyProduct("Hyprsoft Pwdless Authentication for iOS")]
 [assembly: AssemblyCopyright("Copyright © 2019 by Hyprsoft Corporation")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.5.0")]
-[assembly: AssemblyFileVersion("1.0.5.0")]
+[assembly: AssemblyVersion("1.0.6.0")]
+[assembly: AssemblyFileVersion("1.0.6.0")]

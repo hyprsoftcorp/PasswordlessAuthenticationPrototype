@@ -1,18 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<local:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Hyprsoft.Auth.Passwordless"
-             x:Class="Hyprsoft.Auth.Passwordless.FeedbackPage"
+             x:Class="Hyprsoft.Auth.Passwordless.AccessDeniedPage"
              Padding="20">
-
     <ContentPage.Content>
         <ScrollView VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
             <StackLayout>
-                <Image WidthRequest="144" HeightRequest="144" Source="{Binding SplashIcon}" />
+                <Image WidthRequest="{Binding AppIconWidth}" HeightRequest="{Binding AppIconHeight}" Source="{Binding AppIcon}" />
                 <Label Text="{x:Static local:SharedSettings.AppName}" HorizontalOptions="Center" FontSize="Large" Margin="5,0" FontAttributes="Bold" XAlign="Center" />
-                <Label Text="{Binding SplashVersion}" HorizontalOptions="Center" Margin="5,0" TextColor="Gray" FontSize="Small" XAlign="Center" />
-                <Label Text="{Binding Feedback}" HorizontalOptions="Center" Margin="10" XAlign="Center" />
-                <Label HorizontalOptions="CenterAndExpand" IsVisible="{Binding RequestInviteIsVisible}">
+                <Label Text="Oops!" FontSize="Large" XAlign="Center" />
+                <Label Text="It looks like you're no longer authorized to use this app.  You can always request another invite." XAlign="Center" Margin="10,0" />
+                <Label XAlign="Center">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="Request Invite" TextColor="Blue" TextDecorations="Underline">
@@ -26,5 +25,4 @@
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
-
-</ContentPage>
+</local:BaseContentPage>

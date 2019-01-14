@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Hyprsoft.Auth.Passwordless"
+             x:Class="Hyprsoft.Auth.Passwordless.InviteRequestPage"
+             Padding="20">
+    <ContentPage.Content>
+        <ScrollView VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <StackLayout>
+                <Image WidthRequest="{Binding AppIconWidth}" HeightRequest="{Binding AppIconHeight}" Source="{Binding AppIcon}" />
+                <Label Text="{x:Static local:SharedSettings.AppName}" HorizontalOptions="Center" FontSize="Large" Margin="5,0" FontAttributes="Bold" XAlign="Center" />
+                <Label Text="Please enter your name and email address below and we will email you an invitation to use this app." />
+                <Entry Text="{Binding Name, Mode=TwoWay}" Placeholder="Name" />
+                <Entry Text="{Binding Email, Mode=TwoWay}" Placeholder="Email" Keyboard="Email" />
+                <Button Text="Request Invite" Command="{Binding SendInviteCommand}" HorizontalOptions="Center">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="True">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <ActivityIndicator IsRunning="True" HorizontalOptions="Center" WidthRequest="30" HeightRequest="30" IsVisible="{Binding IsBusy}" Margin="10,0" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</local:BaseContentPage>

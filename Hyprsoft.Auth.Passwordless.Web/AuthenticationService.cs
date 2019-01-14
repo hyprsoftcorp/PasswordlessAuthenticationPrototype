@@ -86,7 +86,7 @@ namespace Hyprsoft.Auth.Passwordless.Web
                         $"<body>" +
                         $"<table bgcolor=\"#f8f8f8\" border=\"0\" cellpadding=\"10\" cellspacing=\"0\" style=\"background-color: #f8f8f8; width: 100%;\"><tbody><tr><td width=\"120\"><img src=\"{SharedSettings.AppWebUri}images/logo.png\" width=\"100\" height=\"100\" /></td><td><h2>{SharedSettings.AppName} Invitation</h2></td></tr></tbody></table>" +
                         $"<table bgcolor=\"#fcfcfc\" border=\"0\" cellpadding=\"30\" cellspacing=\"0\" style=\"background-color: #fcfcfc; width: 100%;\"><tbody><tr><td>" +
-                        $"<p>Congrats {request.Name}, you have been invited to try out our password-less authentication app.  Our hope is that all app makers do away with usernames and passwords forever!  We'd love to hear your thoughts on our app using <a href=\"mailto:support@hyprsoft.com?subject={SharedSettings.AppName} Feedback\">support@hyprsoft.com</a>.</p>" +
+                        $"<p>Congrats {request.Name}, you have been invited to try out our password-less authentication app.  Our hope is that all app makers do away with usernames and passwords forever!  We'd love to get your feedback on this app using <a href=\"mailto:support@hyprsoft.com?subject={SharedSettings.AppName} Feedback\">support@hyprsoft.com</a>.</p>" +
                         $"<h3>STEP 1</h3>" +
                         $"<p>Download the '{SharedSettings.AppName}' app from the appropriate app store.</p><p><a href=\"{SharedSettings.AppStoreGoogleUri}\">Google Play Store</a> | <a href=\"{SharedSettings.AppStoreAppleUri}\">Apple App Store</a></p>" +
                         $"<h3>STEP 2</h3>" +

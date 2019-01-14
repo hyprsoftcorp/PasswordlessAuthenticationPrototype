@@ -20,7 +20,7 @@ namespace Hyprsoft.Auth.Passwordless.Web
 
         public TimeSpan BearerTokenClockSkew { get; set; } = TimeSpan.Zero;
 
-        public TimeSpan BearerAccessTokenLifespan { get; set; } = TimeSpan.FromHours(12);
+        public TimeSpan BearerAccessTokenLifespan { get; set; } = TimeSpan.FromHours(1);
 
         public TimeSpan BearerRefreshTokenLifespan { get; set; } = TimeSpan.FromDays(365);
 

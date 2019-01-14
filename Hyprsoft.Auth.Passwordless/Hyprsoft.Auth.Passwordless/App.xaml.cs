@@ -21,7 +21,10 @@ namespace Hyprsoft.Auth.Passwordless
     {
         #region Fields
 
-        private readonly HttpClient _httpClient;
+        private const string PreferencesKeyFirstRun = "FirstRun";
+
+        private const string StorageKeyAccessToken = "AccessToken";
+        private const string StorageKeyRefreshToken = "RefreshToken";
 
         #endregion
 
@@ -30,8 +33,6 @@ namespace Hyprsoft.Auth.Passwordless
         public App()
         {
             InitializeComponent();
-
-            _httpClient = new HttpClient { BaseAddress = SharedSettings.AppWebUri };
             MainPage = new SplashPage();
         }
 
@@ -39,10 +40,7 @@ namespace Hyprsoft.Auth.Passwordless
 
         #region Properties
 
-        internal const string PreferencesKeyFirstRun = "FirstRun";
-
-        internal const string StorageKeyAccessToken = "AccessToken";
-        internal const string StorageKeyRefreshToken = "RefreshToken";
+        internal static readonly HttpClient HttpClient = new HttpClient { BaseAddress = SharedSettings.AppWebUri };
 
         #endregion
 
@@ -58,6 +56,7 @@ namespace Hyprsoft.Auth.Passwordless
                 SecureStorage.RemoveAll();
                 Preferences.Set(PreferencesKeyFirstRun, false);
             }
+
             await InitializeAsync();
         }
 
@@ -66,34 +65,18 @@ namespace Hyprsoft.Auth.Passwordless
             await InitializeAsync();
         }
 
-        public async Task AuthenticateAsync(AuthenticationRequest request)
+        protected override async void OnAppLinkRequestReceived(Uri uri)
         {
-            // Ignore auth requests if we are already authenticated.
-            if (!String.IsNullOrWhiteSpace(await SecureStorage.GetAsync(StorageKeyAccessToken)))
-                return;
+            base.OnAppLinkRequestReceived(uri);
 
-            try
+            var accessToken = await SecureStorage.GetAsync(StorageKeyAccessToken);
+            var refreshToken = await SecureStorage.GetAsync(StorageKeyRefreshToken);
+
+            if (String.IsNullOrWhiteSpace(accessToken) || String.IsNullOrWhiteSpace(refreshToken))
             {
-                System.Diagnostics.Debug.WriteLine($"[{nameof(AuthenticateAsync)}] - UserId: '{request.Id}', Token: '{request.Token}'.");
-                var response = await _httpClient.PostAsync($"api/auth/token",
-                    new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
-                if (response.IsSuccessStatusCode)
-                {
-                    var payload = JsonConvert.DeserializeObject<AuthenticationResponse>(await response.Content.ReadAsStringAsync());
-                    await SecureStorage.SetAsync(StorageKeyAccessToken, payload.AccessToken);
-                    await SecureStorage.SetAsync(StorageKeyRefreshToken, payload.RefreshToken);
-                    Analytics.TrackEvent(nameof(AuthenticateAsync), new Dictionary<string, string> { { "UserId", request.Id } });
-                    await GetUserProfileAsync(payload.AccessToken, payload.RefreshToken);
-                    return;
-                }
-            }
-            catch (Exception ex)
-            {
-                Crashes.TrackError(ex);
-                MainPage = new FeedbackPage($"Uh oh, we have a problem.  Please try again later.  Details: {ex.Message}.");
-            }
-            Analytics.TrackEvent(nameof(AuthenticateAsync), new Dictionary<string, string> { { "Status", "Invitation expired or invalid." } });
-            MainPage = new FeedbackPage("The invitation to use this app has expired or is invalid.  Please request a new invite.");
+                var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
+                await AuthenticateAsync(new AuthenticationRequest { Id = queryString["id"], Token = queryString["token"] });
+            }   // already authenticated?
         }
 
         private async Task InitializeAsync()
@@ -102,27 +85,54 @@ namespace Hyprsoft.Auth.Passwordless
             var refreshToken = await SecureStorage.GetAsync(StorageKeyRefreshToken);
 
             if (String.IsNullOrWhiteSpace(accessToken) || String.IsNullOrWhiteSpace(refreshToken))
-                MainPage = new FeedbackPage("Hmmm, it looks like we are missing your invitaton to use this app.  Please check your email or request an invite.");
+                MainPage = new NavigationPage(new InviteNeededPage());
             else
                 await GetUserProfileAsync(accessToken, refreshToken);
         }
 
-        private async Task GetUserProfileAsync(string accessToken, string refreshToken)
+        private async Task AuthenticateAsync(AuthenticationRequest request)
         {
-            string feedback = "Oops, you're not authorized to use this app.";
             try
             {
-                System.Diagnostics.Debug.WriteLine($"[{nameof(GetUserProfileAsync)}] - Token: '{accessToken}'.");
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                var response = await _httpClient.GetAsync($"api/profile/me");
+                System.Diagnostics.Debug.WriteLine($"[{nameof(AuthenticateAsync)}] - UserId: '{request.Id}', Token: '{request.Token}'.");
+                var response = await HttpClient.PostAsync($"api/auth/token",
+                    new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json"));
                 if (response.IsSuccessStatusCode)
                 {
-                    var me = JsonConvert.DeserializeObject<UserProfile>(await response.Content.ReadAsStringAsync());
-                    feedback = $"Greetings {me.Name}.  You're authenticated using '{me.Email}'.  Thanks for trying out our password-less authentication app.";
+                    var payload = JsonConvert.DeserializeObject<AuthenticationResponse>(await response.Content.ReadAsStringAsync());
+                    await SecureStorage.SetAsync(StorageKeyAccessToken, payload.AccessToken);
+                    await SecureStorage.SetAsync(StorageKeyRefreshToken, payload.RefreshToken);
+                    Analytics.TrackEvent(nameof(AuthenticateAsync), new Dictionary<string, string> { { "Status", $"[SUCCESS] UserId: '{request.Id}'" } });
+                    await GetUserProfileAsync(payload.AccessToken, payload.RefreshToken);
+                }
+                else
+                {
+                    Analytics.TrackEvent(nameof(AuthenticateAsync), new Dictionary<string, string> { { "Status", "[FAILED] Invitation expired or invalid." } });
+                    MainPage = new NavigationPage(new InviteInvalidPage());
+                }
+            }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex);
+                await MainPage.DisplayAlert("Error", $"We appologize, but it looks like something bad happened.  Please try again later.  Details: {ex.Message}.", "Dismiss");
+            }
+        }
+
+        private async Task GetUserProfileAsync(string accessToken, string refreshToken)
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine($"[{nameof(GetUserProfileAsync)}] - Token: '{accessToken}', Refresh: '{refreshToken}'.");
+                HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                var response = await HttpClient.GetAsync($"api/profile/me");
+                if (response.IsSuccessStatusCode)
+                {
+                    var user = JsonConvert.DeserializeObject<UserProfile>(await response.Content.ReadAsStringAsync());
+                    MainPage = new NavigationPage(new UserProfilePage(user));
                 }
                 else if (response.StatusCode == HttpStatusCode.Unauthorized && response.Headers.Contains("Token-Expired"))
                 {
-                    response = await _httpClient.PostAsync($"api/auth/refresh",
+                    response = await HttpClient.PostAsync($"api/auth/refresh",
                         new StringContent(JsonConvert.SerializeObject(new AuthenticationResponse { AccessToken = accessToken, RefreshToken = refreshToken }), Encoding.UTF8, "application/json"));
                     if (response.IsSuccessStatusCode)
                     {
@@ -130,28 +140,25 @@ namespace Hyprsoft.Auth.Passwordless
                         await SecureStorage.SetAsync(StorageKeyAccessToken, payload.AccessToken);
                         await SecureStorage.SetAsync(StorageKeyRefreshToken, payload.RefreshToken);
                         await GetUserProfileAsync(payload.AccessToken, payload.RefreshToken);
-                        return;
+                    }   // successful response code?
+                    else
+                    {
+                        Analytics.TrackEvent(nameof(GetUserProfileAsync), new Dictionary<string, string> { { "Status", $"[FAILED] Refresh failed.  Reason: '{response.ReasonPhrase}'." } });
+                        MainPage = new NavigationPage(new AccessDeniedPage());
                     }
-                    Analytics.TrackEvent(nameof(GetUserProfileAsync), new Dictionary<string, string> { { "Status", $"{response.StatusCode} {response.ReasonPhrase}" } });
                 }
                 else
-                    Analytics.TrackEvent(nameof(GetUserProfileAsync), new Dictionary<string, string> { { "Status", $"{response.StatusCode} {response.ReasonPhrase}" } });
+                {
+                    Analytics.TrackEvent(nameof(GetUserProfileAsync), new Dictionary<string, string> { { "Status", $"[FAILED] Reason: '{response.ReasonPhrase}'." } });
+                    MainPage = new NavigationPage(new AccessDeniedPage());
+                }   // successful response code?
             }
             catch (Exception ex)
             {
                 Crashes.TrackError(ex);
-                feedback = $"Uh oh, we have a problem.  Please try again later.  Details: {ex.Message}.";
+                await MainPage.DisplayAlert("Error", $"We appologize, but it looks like something bad happened.  Please try again later.  Details: {ex.Message}.", "Dismiss");
             }
-            MainPage = new FeedbackPage(feedback);
         }
-
-        protected override async void OnAppLinkRequestReceived(Uri uri)
-        {
-            base.OnAppLinkRequestReceived(uri);
-            var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
-            await AuthenticateAsync(new AuthenticationRequest { Id = queryString["id"], Token = queryString["token"] });
-        }
-
         #endregion
     }
 }

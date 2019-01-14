@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Hyprsoft.Auth.Passwordless.Models;
-using Hyprsoft.Auth.Passwordless.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hyprsoft.Auth.Passwordless.Web.Controllers

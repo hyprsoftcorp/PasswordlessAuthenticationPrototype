@@ -81,13 +81,33 @@ namespace Hyprsoft.Auth.Passwordless
 
         private async Task InitializeAsync()
         {
-            var accessToken = await SecureStorage.GetAsync(StorageKeyAccessToken);
-            var refreshToken = await SecureStorage.GetAsync(StorageKeyRefreshToken);
+            var takeScreenshots = false;
+            if (!takeScreenshots)
+            {
+                var accessToken = await SecureStorage.GetAsync(StorageKeyAccessToken);
+                var refreshToken = await SecureStorage.GetAsync(StorageKeyRefreshToken);
 
-            if (String.IsNullOrWhiteSpace(accessToken) || String.IsNullOrWhiteSpace(refreshToken))
-                MainPage = new NavigationPage(new InviteNeededPage());
+                if (String.IsNullOrWhiteSpace(accessToken) || String.IsNullOrWhiteSpace(refreshToken))
+                    MainPage = new NavigationPage(new InviteNeededPage());
+                else
+                    await GetUserProfileAsync(accessToken, refreshToken);
+            }
             else
-                await GetUserProfileAsync(accessToken, refreshToken);
+            {
+                const int ScreenShotDelaySeconds = 10;
+
+                // First delay if for opur splash page which is already set.
+                await Task.Delay(TimeSpan.FromSeconds(ScreenShotDelaySeconds));
+                MainPage = new InviteNeededPage();
+                await Task.Delay(TimeSpan.FromSeconds(ScreenShotDelaySeconds));
+                MainPage = new InviteRequestPage();
+                await Task.Delay(TimeSpan.FromSeconds(ScreenShotDelaySeconds));
+                MainPage = new InviteInvalidPage();
+                await Task.Delay(TimeSpan.FromSeconds(ScreenShotDelaySeconds));
+                MainPage = new UserProfilePage(new UserProfile { Name = "John Smith", Email = "jsmith@noreply.com" });
+                await Task.Delay(TimeSpan.FromSeconds(ScreenShotDelaySeconds));
+                MainPage = new AccessDeniedPage();
+            }
         }
 
         private async Task AuthenticateAsync(AuthenticationRequest request)

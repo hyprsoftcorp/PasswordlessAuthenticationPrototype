@@ -30,23 +30,43 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Android", "Android", "{5B30ED93-7DD2-4B4E-9D74-EA5A4C951976}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Phone", "Phone", "{38EFE5EA-B1AF-4D0B-92B5-502BD1B67E71}"
+	ProjectSection(SolutionItems) = preProject
+		Media\Android\Phone\Screenshot_1547425799.png = Media\Android\Phone\Screenshot_1547425799.png
+		Media\Android\Phone\Screenshot_1547425805.png = Media\Android\Phone\Screenshot_1547425805.png
+		Media\Android\Phone\Screenshot_1547425810.png = Media\Android\Phone\Screenshot_1547425810.png
+		Media\Android\Phone\Screenshot_1547425814.png = Media\Android\Phone\Screenshot_1547425814.png
+		Media\Android\Phone\Screenshot_1547425819.png = Media\Android\Phone\Screenshot_1547425819.png
+		Media\Android\Phone\Screenshot_1547425828.png = Media\Android\Phone\Screenshot_1547425828.png
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tablet", "Tablet", "{05C07E1F-89BE-478A-9069-168B895F4A45}"
+	ProjectSection(SolutionItems) = preProject
+		Media\Android\Tablet\Screenshot_1547426034.png = Media\Android\Tablet\Screenshot_1547426034.png
+		Media\Android\Tablet\Screenshot_1547426040.png = Media\Android\Tablet\Screenshot_1547426040.png
+		Media\Android\Tablet\Screenshot_1547426045.png = Media\Android\Tablet\Screenshot_1547426045.png
+		Media\Android\Tablet\Screenshot_1547426049.png = Media\Android\Tablet\Screenshot_1547426049.png
+		Media\Android\Tablet\Screenshot_1547426054.png = Media\Android\Tablet\Screenshot_1547426054.png
+		Media\Android\Tablet\Screenshot_1547426059.png = Media\Android\Tablet\Screenshot_1547426059.png
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Phone", "Phone", "{CDE48969-9081-4D04-878B-23390689DAD4}"
 	ProjectSection(SolutionItems) = preProject
-		Media\iOS\Phone\2019-01-07_12-36-42-PM.png = Media\iOS\Phone\2019-01-07_12-36-42-PM.png
-		Media\iOS\Phone\2019-01-07_12-40-44-PM.png = Media\iOS\Phone\2019-01-07_12-40-44-PM.png
-		Media\iOS\Phone\2019-01-07_12-41-49-PM.png = Media\iOS\Phone\2019-01-07_12-41-49-PM.png
-		Media\iOS\Phone\2019-01-07_12-54-37-PM.png = Media\iOS\Phone\2019-01-07_12-54-37-PM.png
+		Media\iOS\Phone\2019-01-13_04-56-48-PM.png = Media\iOS\Phone\2019-01-13_04-56-48-PM.png
+		Media\iOS\Phone\2019-01-13_04-56-58-PM.png = Media\iOS\Phone\2019-01-13_04-56-58-PM.png
+		Media\iOS\Phone\2019-01-13_04-57-09-PM.png = Media\iOS\Phone\2019-01-13_04-57-09-PM.png
+		Media\iOS\Phone\2019-01-13_04-57-18-PM.png = Media\iOS\Phone\2019-01-13_04-57-18-PM.png
+		Media\iOS\Phone\2019-01-13_04-57-28-PM.png = Media\iOS\Phone\2019-01-13_04-57-28-PM.png
+		Media\iOS\Phone\2019-01-13_04-57-38-PM.png = Media\iOS\Phone\2019-01-13_04-57-38-PM.png
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tablet", "Tablet", "{BDDD5E45-B61C-4D87-BEDA-A5B67975D8F1}"
 	ProjectSection(SolutionItems) = preProject
-		Media\iOS\Tablet\2019-01-07_03-17-42-PM.png = Media\iOS\Tablet\2019-01-07_03-17-42-PM.png
-		Media\iOS\Tablet\2019-01-07_03-22-37-PM.png = Media\iOS\Tablet\2019-01-07_03-22-37-PM.png
-		Media\iOS\Tablet\2019-01-07_03-24-21-PM.png = Media\iOS\Tablet\2019-01-07_03-24-21-PM.png
-		Media\iOS\Tablet\2019-01-07_03-26-13-PM.png = Media\iOS\Tablet\2019-01-07_03-26-13-PM.png
+		Media\iOS\Tablet\2019-01-13_05-17-00-PM.png = Media\iOS\Tablet\2019-01-13_05-17-00-PM.png
+		Media\iOS\Tablet\2019-01-13_05-17-10-PM.png = Media\iOS\Tablet\2019-01-13_05-17-10-PM.png
+		Media\iOS\Tablet\2019-01-13_05-17-21-PM.png = Media\iOS\Tablet\2019-01-13_05-17-21-PM.png
+		Media\iOS\Tablet\2019-01-13_05-17-30-PM.png = Media\iOS\Tablet\2019-01-13_05-17-30-PM.png
+		Media\iOS\Tablet\2019-01-13_05-17-40-PM.png = Media\iOS\Tablet\2019-01-13_05-17-40-PM.png
+		Media\iOS\Tablet\2019-01-13_05-17-51-PM.png = Media\iOS\Tablet\2019-01-13_05-17-51-PM.png
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{18DBCEAC-D926-4C15-BFAA-F20C4109C26A}"

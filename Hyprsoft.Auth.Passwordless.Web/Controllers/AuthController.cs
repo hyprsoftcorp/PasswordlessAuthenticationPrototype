@@ -53,7 +53,7 @@ namespace Hyprsoft.Auth.Passwordless.Web.Controllers
 
             try
             {
-                return Ok(await _authenticationService.GetTokensAsync(model));
+                return Ok(await _authenticationService.AuthenticateAsync(model));
             }
             catch (AuthenticationServiceForbiddenException)
             {
@@ -77,7 +77,7 @@ namespace Hyprsoft.Auth.Passwordless.Web.Controllers
 
             try
             {
-                return Ok(await _authenticationService.RefreshTokensAsync(model));
+                return Ok(await _authenticationService.RefreshAuthenticationAsync(model));
             }
             catch (AuthenticationServiceForbiddenException)
             {

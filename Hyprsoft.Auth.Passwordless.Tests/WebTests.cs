@@ -1,11 +1,8 @@
 using Hyprsoft.Auth.Passwordless.Models;
 using Hyprsoft.Auth.Passwordless.Web;
-using Hyprsoft.Auth.Passwordless.Web.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
@@ -128,6 +125,8 @@ namespace Hyprsoft.Auth.Passwordless.Tests
                 // Wait for our access token to expire
                 var authenticationService = WebServer.Host.Services.GetRequiredService<AuthenticationService>();
                 await Task.Delay(authenticationService.Options.BearerAccessTokenLifespan);
+
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authenticationResponse.AccessToken);
                 var response = await client.GetAsync("api/profile/me");
                 Assert.IsTrue(response.StatusCode == System.Net.HttpStatusCode.Unauthorized);
                 Assert.IsTrue(response.Headers.Contains("Token-Expired"));

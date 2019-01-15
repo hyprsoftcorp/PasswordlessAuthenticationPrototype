@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -8,7 +11,8 @@ namespace Hyprsoft.Auth.Passwordless.Web.Controllers
     /// <summary>
     /// Used to validate app links on Android devices and universal links on iOS devices.
     /// </summary>
-    public class AppLinksController : Controller
+    [Produces("application/json")]
+    public class AppLinksController : ControllerBase
     {
         #region Methods
 
@@ -42,16 +46,26 @@ namespace Hyprsoft.Auth.Passwordless.Web.Controllers
             return GetEmbeddedResourceAsJson("Hyprsoft.Auth.Passwordless.Web.apple-app-site-association.json");
         }
 
-        private ContentResult GetEmbeddedResourceAsJson(string resourceKey)
+        private ActionResult GetEmbeddedResourceAsJson(string resourceKey)
         {
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceKey))
+            try
             {
-                var bytes = new byte[stream.Length];
-                using (var reader = new StreamReader(stream))
-                    stream.Read(bytes, 0, bytes.Length);
+                if (String.IsNullOrWhiteSpace(Assembly.GetExecutingAssembly().GetManifestResourceNames().FirstOrDefault(n => n == resourceKey)))
+                    throw new InvalidOperationException($"Resource key '{resourceKey}' not found.");
 
-                return Content(Encoding.UTF8.GetString(bytes, 0, bytes.Length), "application/json");
-            }   // using manifest resource stream
+                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceKey))
+                {
+                    var bytes = new byte[stream.Length];
+                    using (var reader = new StreamReader(stream))
+                        stream.Read(bytes, 0, bytes.Length);
+
+                    return Content(Encoding.UTF8.GetString(bytes, 0, bytes.Length), "application/json");
+                }   // using manifest resource stream
+            }
+            catch (Exception ex)
+            {
+                return Content(JsonConvert.SerializeObject(new { Error = ex.Message }), "application/json");
+            }
         }
 
         #endregion

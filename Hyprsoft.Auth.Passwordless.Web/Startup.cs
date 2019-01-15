@@ -97,7 +97,7 @@ namespace Hyprsoft.Auth.Passwordless.Web
                     Title = "Pwdless Authentication API",
                     Version = "v1",
                     Description = "Password-less Authentication REST API.",
-                    Contact = new Contact { Name = "Hal Blakeslee", Email = "hal@hyprsoft.com", Url = "http://www.hyprsoft.com/" }
+                    Contact = new Contact { Name = "Hyprsoft Corporation", Email = "support@hyprsoft.com", Url = "http://www.hyprsoft.com/" }
                 });
                 options.AddSecurityDefinition("Bearer", new ApiKeyScheme
                 {

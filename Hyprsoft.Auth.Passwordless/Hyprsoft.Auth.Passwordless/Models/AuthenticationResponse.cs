@@ -5,13 +5,22 @@ using System.Threading.Tasks;
 
 namespace Hyprsoft.Auth.Passwordless.Models
 {
+    /// <summary>
+    /// Represents an authentiction response containing a bearer access token and refresh token.
+    /// </summary>
     public class AuthenticationResponse
     {
         #region Properties
 
+        /// <summary>
+        /// Bearer access token.
+        /// </summary>
         [Required]
         public string AccessToken { get; set; }
 
+        /// <summary>
+        /// Refresh token.
+        /// </summary>
         [Required]
         public string RefreshToken { get; set; }
 

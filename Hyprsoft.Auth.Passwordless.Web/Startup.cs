@@ -8,7 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Swagger;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -86,6 +90,26 @@ namespace Hyprsoft.Auth.Passwordless.Web
             services.AddSingleton(authenticationServiceOptions);
             services.AddScoped<AuthenticationService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Info
+                {
+                    Title = "Pwdless Authentication API",
+                    Version = "v1",
+                    Description = "Password-less Authentication REST API.",
+                    Contact = new Contact { Name = "Hal Blakeslee", Email = "hal@hyprsoft.com", Url = "http://www.hyprsoft.com/" }
+                });
+                options.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                {
+                    Description = "Value below should be in the form: \"Bearer &lt;your token&gt;\"",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
+                options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> { { "Bearer", new string[] { } } });
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{typeof(Hyprsoft.Auth.Passwordless.App).Assembly.GetName().Name}.xml"));
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -98,6 +122,8 @@ namespace Hyprsoft.Auth.Passwordless.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
+            app.UseSwagger();
+            app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "Pwdless Authentication API V1"));
             app.UseMvcWithDefaultRoute();
         }
 

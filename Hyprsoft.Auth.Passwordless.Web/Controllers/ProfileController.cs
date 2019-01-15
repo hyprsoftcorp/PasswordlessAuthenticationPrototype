@@ -9,7 +9,7 @@ using System.Security.Claims;
 namespace Hyprsoft.Auth.Passwordless.Web.Controllers
 {
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [ApiController, Route("api/[controller]/[action]")]
+    [ApiController, Route("api/[controller]/[action]"), Produces("application/json")]
     public class ProfileController : ControllerBase
     {
         #region Fields
@@ -29,6 +29,13 @@ namespace Hyprsoft.Auth.Passwordless.Web.Controllers
 
         #region Methods
 
+        /// <summary>
+        /// Get's the current user's profile information.
+        /// </summary>
+        /// <returns>The current user's profile.  <see cref="UserProfile"/>.</returns>
+        /// <response code="401">Returned if the user is not found.</response>
+        /// <response code="403">Returned if the user is disabled.</response>
+        [ProducesResponseType(401), ProducesResponseType(403)]
         [HttpGet]
         public ActionResult<UserProfile> Me()
         {

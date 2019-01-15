@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,6 +17,7 @@ namespace Hyprsoft.Auth.Passwordless.Web
         [Required]
         public string Name { get; set; }
 
+        [DefaultValue(true)]
         public bool IsEnabled { get; set; } = true;
 
         [ForeignKey("UserId")]

@@ -60,7 +60,7 @@ namespace Hyprsoft.Auth.Passwordless.Tests
         }
 
         [TestMethod]
-        public async Task BadRequests()
+        public async Task NegativeRequests()
         {
             using (var client = WebServer.CreateClient())
             {
@@ -70,6 +70,10 @@ namespace Hyprsoft.Auth.Passwordless.Tests
 
                 // Authenticate
                 response = await client.PostAsync("api/auth/token", new StringContent(String.Empty, Encoding.UTF8, "application/json"));
+                Assert.IsTrue(response.StatusCode == System.Net.HttpStatusCode.BadRequest);
+
+                // Refresh
+                response = await client.PostAsync("api/auth/refresh", new StringContent(String.Empty, Encoding.UTF8, "application/json"));
                 Assert.IsTrue(response.StatusCode == System.Net.HttpStatusCode.BadRequest);
 
                 // Invalid user.
@@ -95,7 +99,7 @@ namespace Hyprsoft.Auth.Passwordless.Tests
             var user = await userManager.FindByEmailAsync(TestUserEmail);
             if (user == null)
                 await userManager.CreateAsync(new PasswordlessAuthIdentityUser { UserName = TestUserEmail, Email = TestUserEmail, Name = TestUserName, IsEnabled = false });
-            else
+            else if (user.IsEnabled)
             {
                 user.IsEnabled = false;
                 await userManager.UpdateAsync(user);

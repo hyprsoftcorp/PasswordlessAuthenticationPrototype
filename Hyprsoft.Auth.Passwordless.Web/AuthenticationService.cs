@@ -96,7 +96,7 @@ namespace Hyprsoft.Auth.Passwordless.Web
                             $"<h3>STEP 1</h3>" +
                             $"<p>Download the '{SharedSettings.AppName}' app from the appropriate app store.</p><p><a href=\"{SharedSettings.AppStoreGoogleUri}\">Google Play Store</a> | <a href=\"{SharedSettings.AppStoreAppleUri}\">Apple App Store</a></p>" +
                             $"<h3>STEP 2</h3>" +
-                            $"<p>Once the app is installed, open the link below on your mobile device.  <b>NOTE: The link below expires in {Options.OtpTokenLifespan.TotalMinutes} minutes and can only be used once</b>.  If you uninstall the app you will need to <a href=\"{SharedSettings.AppWebUri}\">request another invite</a>.<br /><a href=\"{magicLink}\"><h3>OPEN THIS LINK</h3></a></p>" +
+                            $"<p>Once the app is installed, open the link below on your mobile device.  <b>NOTE: The link below expires in {Options.OtpTokenLifespan.TotalMinutes} minutes and can only be used once</b>.  If you uninstall the app you will need to request another invite.<br /><a href=\"{magicLink}\"><h3>OPEN THIS LINK</h3></a></p>" +
                             $"<p align=\"center\"><small>Generated: {DateTime.Now.ToString("f")} | Copyright © {DateTime.Now.Year} by <a href=\"https://www.hyprsoft.com/\">Hyprsoft Corporation</a></small></p>" +
                             $"</td></tr></tbody></table>" +
                             $"</body>" +

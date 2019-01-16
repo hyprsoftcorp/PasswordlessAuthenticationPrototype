@@ -54,6 +54,12 @@ namespace Hyprsoft.Auth.Passwordless.Web.Controllers
             return View(model);
         }
 
+        [HttpGet("api/auth/token")]
+        public ActionResult DeviceRequired()
+        {
+            return View();
+        }
+
         #endregion
     }
 }

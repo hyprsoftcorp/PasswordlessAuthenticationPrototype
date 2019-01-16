@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="8" android:versionName="1.08" package="com.hyprsoft.Auth.Passwordless.Prototype" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.09" package="com.hyprsoft.Auth.Passwordless.Prototype" android:installLocation="auto" android:versionCode="9">
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="27" />
 	<application android:label="Pwdless Authentication" android:allowBackup="false"></application>
 </manifest>

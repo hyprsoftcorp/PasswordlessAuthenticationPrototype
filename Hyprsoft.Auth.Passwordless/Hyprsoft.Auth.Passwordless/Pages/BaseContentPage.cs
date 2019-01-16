@@ -17,10 +17,6 @@ namespace Hyprsoft.Auth.Passwordless
 
         #region Properties
 
-        public double AppIconWidth { get; set; } = 124;
-
-        public double AppIconHeight { get; set; } = 124;
-
         public ImageSource AppIcon => ImageSource.FromResource("Hyprsoft.Auth.Passwordless.logo.png", typeof(SplashPage).GetTypeInfo().Assembly);
 
         public string AppVersion => $"Version: {AppInfo.VersionString}";

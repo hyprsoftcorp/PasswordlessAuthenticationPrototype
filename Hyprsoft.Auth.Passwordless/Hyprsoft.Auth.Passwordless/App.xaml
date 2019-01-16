@@ -1,8 +1,65 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Hyprsoft.Auth.Passwordless"
              x:Class="Hyprsoft.Auth.Passwordless.App">
     <Application.Resources>
+        <Style x:Key="PageScrollStyle" TargetType="ScrollView">
+            <Setter Property="VerticalOptions" Value="FillAndExpand" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            <Setter Property="Padding" Value="20,0,20,20" />
+        </Style>
+        <Style x:Key="PageStackStyle" TargetType="StackLayout">
+            <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+        </Style>
+        <Style x:Key="AppIconStyle" TargetType="Image">
+            <Setter Property="WidthRequest" Value="124" />
+            <Setter Property="HeightRequest" Value="124" />
+        </Style>
+        <Style x:Key="AppNameStyle" TargetType="Label">
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="FontSize" Value="Large" />
+            <Setter Property="Margin" Value="0,5" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="XAlign" Value="Center" />
+            <Setter Property="Text" Value="{x:Static local:SharedSettings.AppName}" />
+        </Style>
+        <Style x:Key="AppVersionStyle" TargetType="Label">
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="Margin" Value="0,5" />
+            <Setter Property="TextColor" Value="Gray" />
+            <Setter Property="FontSize" Value="Small" />
+            <Setter Property="XAlign" Value="Center" />
+        </Style>
+        <Style x:Key="PageTitleStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="Large" />
+            <Setter Property="XAlign" Value="Center" />
+        </Style>
+        <Style x:Key="PageContentStyle" TargetType="Label">
+            <Setter Property="Margin" Value="0,10" />
+            <Setter Property="XAlign" Value="Center" />
+        </Style>
+
+        <Style x:Key="LinkButtonFrameStyle" TargetType="Frame">
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="HasShadow" Value="False" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+        </Style>
+        <Style x:Key="LinkButtonLabelStyle" TargetType="Label">
+            <Setter Property="XAlign" Value="Center" />
+        </Style>
+        <Style x:Key="LinkButtonSpanStyle" TargetType="Span">
+            <Setter Property="TextColor" Value="#007bfc" />
+        </Style>
+
+        <Style TargetType="ActivityIndicator">
+            <Setter Property="IsRunning" Value="True" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="WidthRequest" Value="30" />
+            <Setter Property="HeightRequest" Value="30" />
+            <Setter Property="Margin" Value="0,10" />
+        </Style>
 
     </Application.Resources>
 </Application>

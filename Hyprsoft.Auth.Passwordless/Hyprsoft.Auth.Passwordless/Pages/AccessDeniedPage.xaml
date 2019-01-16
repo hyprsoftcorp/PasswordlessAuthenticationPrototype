@@ -2,26 +2,26 @@
 <local:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Hyprsoft.Auth.Passwordless"
-             x:Class="Hyprsoft.Auth.Passwordless.AccessDeniedPage"
-             Padding="20">
+             x:Class="Hyprsoft.Auth.Passwordless.AccessDeniedPage">
     <ContentPage.Content>
-        <ScrollView VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-            <StackLayout>
-                <Image WidthRequest="{Binding AppIconWidth}" HeightRequest="{Binding AppIconHeight}" Source="{Binding AppIcon}" />
-                <Label Text="{x:Static local:SharedSettings.AppName}" HorizontalOptions="Center" FontSize="Large" Margin="5,0" FontAttributes="Bold" XAlign="Center" />
-                <Label Text="Oops!" FontSize="Large" XAlign="Center" />
-                <Label Text="It looks like you're no longer authorized to use this app.  You can always request another invite." XAlign="Center" Margin="10,0" />
-                <Label XAlign="Center">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="Request Invite" TextColor="Blue" TextDecorations="Underline">
-                                <Span.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding RequestInviteCommand}" />
-                                </Span.GestureRecognizers>
-                            </Span>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
+        <ScrollView Style="{StaticResource PageScrollStyle}">
+            <StackLayout Style="{StaticResource PageStackStyle}">
+                <Image Style="{StaticResource AppIconStyle}" Source="{Binding AppIcon}" />
+                <Label Style="{StaticResource AppNameStyle}" />
+                <Label Style="{StaticResource PageTitleStyle}" Text="Oops!" />
+                <Label Style="{StaticResource PageContentStyle}" Text="It looks like you're no longer authorized to use this app.  You can always request another invite." />
+                <Frame Style="{StaticResource LinkButtonFrameStyle}">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RequestInviteCommand}" />
+                    </Frame.GestureRecognizers>
+                    <Label Style="{StaticResource LinkButtonLabelStyle}" InputTransparent="True">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Style="{StaticResource LinkButtonSpanStyle}" Text="Request Invite" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Frame>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

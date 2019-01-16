@@ -2,16 +2,13 @@
 <local:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Hyprsoft.Auth.Passwordless"
-             x:Class="Hyprsoft.Auth.Passwordless.SplashPage"
-             Padding="20">
-
+             x:Class="Hyprsoft.Auth.Passwordless.SplashPage">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-            <Image WidthRequest="{Binding AppIconWidth}" HeightRequest="{Binding AppIconHeight}" Source="{Binding AppIcon}" />
-            <Label Text="{x:Static local:SharedSettings.AppName}" HorizontalOptions="Center" FontSize="Large" Margin="5,0" FontAttributes="Bold" XAlign="Center" />
-            <Label Text="{Binding AppVersion}" HorizontalOptions="Center" Margin="5,0" TextColor="Gray" FontSize="Small" XAlign="Center" />
-            <ActivityIndicator IsRunning="True" HorizontalOptions="Center" WidthRequest="30" HeightRequest="30" />
+        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Padding="0,20">
+            <Image Style="{StaticResource AppIconStyle}" Source="{Binding AppIcon}" />
+            <Label Style="{StaticResource AppNameStyle}" />
+            <Label Style="{StaticResource AppVersionStyle}" Text="{Binding AppVersion}" />
+            <ActivityIndicator />
         </StackLayout>
     </ContentPage.Content>
-    
 </local:BaseContentPage>

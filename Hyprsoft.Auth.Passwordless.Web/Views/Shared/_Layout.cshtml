@@ -35,10 +35,11 @@
     </nav>
     <div class="container">
         @RenderBody()
+        <footer>
+            <hr />
+            <p class="text-center"><small>copyright © @DateTime.Now.Year by <a href="http://www.hyprsoft.com/">Hyprsoft Corporation</a> | Version: @Html.GetAssemblyInformationalVersion() | Build Date: @Html.GetAssemblyBuildDateTime().ToLocalTime().ToString("f")</small></p>
+        </footer>
     </div>
-    <footer>
-        <p class="text-center"><small>copyright © @DateTime.Now.Year by <a href="http://www.hyprsoft.com/">Hyprsoft Corporation</a> | Version: @Html.GetAssemblyInformationalVersion() | Build Date: @Html.GetAssemblyBuildDateTime().ToLocalTime().ToString("f")</small></p>
-    </footer>
     <script src="~/lib/jquery/jquery.min.js"></script>
     <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
     <environment include="Development">

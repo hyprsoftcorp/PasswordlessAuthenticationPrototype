@@ -20,6 +20,9 @@ Built using C# and Xamarin Forms (100% shared code).  To initiate the password-l
 ### Web
 ![Web Screenshot](https://github.com/hyprsoftcorp/PasswordlessAuthenticationPrototype/blob/master/Media/Web/home.png "Web Screenshot")
 
+### API Swagger Documentation
+![Web API Screenshot](https://github.com/hyprsoftcorp/PasswordlessAuthenticationPrototype/blob/master/Media/Web/apidocs.png "Web API Screenshot")
+
 ### Email Invitation
 ![Email Invitation Screenshot](https://github.com/hyprsoftcorp/PasswordlessAuthenticationPrototype/blob/master/Media/Web/invite.png "Email Invitation Screenshot")
 

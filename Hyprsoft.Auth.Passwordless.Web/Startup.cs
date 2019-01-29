@@ -94,7 +94,7 @@ namespace Hyprsoft.Auth.Passwordless.Web
             {
                 options.SwaggerDoc("v1", new Info
                 {
-                    Title = "Pwdless Authentication API",
+                    Title = "Pwdless Authentication REST API",
                     Version = "v1",
                     Description = "Password-less Authentication REST API.",
                     Contact = new Contact { Name = "Hyprsoft Corporation", Email = "support@hyprsoft.com", Url = "http://www.hyprsoft.com/" }
@@ -123,7 +123,7 @@ namespace Hyprsoft.Auth.Passwordless.Web
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseSwagger();
-            app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "Pwdless Authentication API V1"));
+            app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "Pwdless Authentication REST API V1"));
             app.UseMvcWithDefaultRoute();
         }
 

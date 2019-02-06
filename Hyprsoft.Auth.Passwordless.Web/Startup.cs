@@ -52,7 +52,7 @@ namespace Hyprsoft.Auth.Passwordless.Web
                     options.UseInMemoryDatabase("Hyprsoft.Auth.Passwordless");
                 }
                 else
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), o => o.EnableRetryOnFailure());
+                    options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
 
             services.AddIdentity<PasswordlessAuthIdentityUser, IdentityRole>()

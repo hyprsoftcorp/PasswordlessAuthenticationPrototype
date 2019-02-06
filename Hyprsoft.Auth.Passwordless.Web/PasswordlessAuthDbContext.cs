@@ -28,7 +28,7 @@ namespace Hyprsoft.Auth.Passwordless.Web
             base.OnModelCreating(builder);
 
             // Fluent API not avaialble via Data Annotations.
-            builder.Entity<PasswordlessAuthIdentityUser>().Property(p => p.CreatedUtc).HasDefaultValueSql("getutcdate()");
+            builder.Entity<PasswordlessAuthIdentityUser>().Property(p => p.CreatedUtc).HasDefaultValueSql("date('now')");
         }
 
         #endregion

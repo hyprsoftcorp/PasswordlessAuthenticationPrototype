@@ -119,7 +119,6 @@ namespace Hyprsoft.Auth.Passwordless.Web
             else
                 app.UseHsts();
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseSwagger();

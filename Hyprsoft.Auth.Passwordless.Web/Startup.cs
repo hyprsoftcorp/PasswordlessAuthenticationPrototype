@@ -42,7 +42,8 @@ namespace Hyprsoft.Auth.Passwordless.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            AuthenticationServiceOptions authenticationServiceOptions = new AuthenticationServiceOptions();
+            AuthenticationServiceOptions authenticationServiceOptions = new AuthenticationServiceOptions { BearerTokenSecurityKey = Configuration["BearerTokenSecurityKey"] ?? "4E76C132-10DD-4443-9C63-2F8C93BDD40C-9BB5C488-A01C-4ED2-953D-23675A15E4A4-474E1D77-AD03-4C82-AAD5-E89D78016BFA" };
+
             services.AddDbContext<PasswordlessAuthDbContext>(options =>
             {
                 if (HostingEnvironment.EnvironmentName.Equals("Test", StringComparison.CurrentCultureIgnoreCase))

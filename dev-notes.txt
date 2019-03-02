@@ -2,7 +2,7 @@ Android Launcher Icon Generator (Google Chrome)
 https://romannurik.github.io/AndroidAssetStudio/index.html
 
 ADB command to test deep links.
-c:\Program Files (x86)\Android\android-sdk\platform-tools\adb.exe shell am start -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d "https://pwdlessauth.azurewebsites.net?id=xxx\&token=xxx
+"c:\Program Files (x86)\Android\android-sdk\platform-tools\adb.exe" shell am start -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d "https://pwdlessauth.azurewebsites.net?id=xxx&token=xxx
 
 Android Keystore Signatures
 "C:\Program Files (x86)\Java\jdk1.8.0_172\bin\keytool.exe" -list -v -keystore "%LocalAppData%\Xamarin\Mono for Android\Keystore\PwdlessAuthPrototypeApp\PwdlessAuthPrototypeApp.keystore" -alias PwdlessAuthPrototypeApp -storepass [password] -keypass [password]

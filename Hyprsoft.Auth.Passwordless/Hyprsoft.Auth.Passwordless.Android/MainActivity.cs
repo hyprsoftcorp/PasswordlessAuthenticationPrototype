@@ -2,15 +2,16 @@
 using Android.Content.PM;
 using Android.Content;
 using Android.OS;
+using Android.Runtime;
 
 namespace Hyprsoft.Auth.Passwordless.Droid
 {
     [IntentFilter(new[] { Intent.ActionView },
-              Categories = new[] { Intent.ActionView, Intent.CategoryDefault, Intent.CategoryBrowsable },
-              DataScheme = "https",
-              DataHost = "pwdlessauth.azurewebsites.net",
-              DataPathPrefix = "/api/auth/token",
-              AutoVerify = true)]
+        Categories = new[] { Intent.ActionView, Intent.CategoryDefault, Intent.CategoryBrowsable },
+        DataScheme = "https",
+        DataHost = "pwdlessauth.azurewebsites.net",
+        DataPathPrefix = "/api/auth/token",
+        AutoVerify = true)]
 
     [Activity(Label = SharedSettings.AppName,
         Icon = "@mipmap/icon",
@@ -29,6 +30,13 @@ namespace Hyprsoft.Auth.Passwordless.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        {
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }

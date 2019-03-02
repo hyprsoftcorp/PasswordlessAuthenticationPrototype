@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Hyprsoft.Auth.Passwordless.Tests")]
 namespace Hyprsoft.Auth.Passwordless.Web
@@ -13,6 +14,8 @@ namespace Hyprsoft.Auth.Passwordless.Web
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseKestrel()
                 .UseApplicationInsights()
                 .UseStartup<Startup>();
     }
